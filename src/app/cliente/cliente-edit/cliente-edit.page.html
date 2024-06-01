@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/cliente-list"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>{{isNew ? 'Nuevo' : 'Editar'}} Cliente</ion-title>
+
+    <ion-buttons slot="primary">
+      <ion-button fill="solid" (click)="guardarCliente()" color="primary">
+        Guardar
+      </ion-button>
+      <ion-button *ngIf="!isNew" fill="solid" (click)="eliminarCliente()" color="danger">
+        <ion-icon slot="end" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list>
+    <ion-item style="display: none;">
+      <ion-label>ID#</ion-label>
+      <ion-input [(ngModel)]="id" readonly="true" disabled="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Nombre y Apellido:</ion-label>
+      <ion-input [(ngModel)]="cliente.nombreape" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Fecha de Nacimiento:</ion-label>
+      <ion-input type="date"
+        [(ngModel)]="cliente.fecha">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Bien asegurado:</ion-label>
+      <ion-input [(ngModel)]="cliente.bienase" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Monto Asegurado:</ion-label>
+      <ion-input [(ngModel)]="cliente.monto" type="number" required></ion-input>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

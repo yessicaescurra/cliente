@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar *ngIf="!isSearch">
+    <ion-title>Lista de Clientes Asegurados</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="clickSearch()">
+        <ion-icon slot="end" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="isSearch">
+    <ion-searchbar show-cancel-button="always" show-clear-button="always" (ionClear)="clearSearch()" (ionChange)="buscarSearch($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list lines="none">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <ion-label><b>Nombre y Apellido</b></ion-label>
+          <ion-item *ngFor="let cliente of listaCliente">
+            <ion-label>{{ cliente.nombreape }}</ion-label>
+          </ion-item>
+        </ion-col>
+        
+        <ion-col size="4">
+          <ion-label><b>Bien Asegurado</b></ion-label>
+          <ion-item *ngFor="let cliente of listaCliente">
+            <ion-label>{{ cliente.bienase }}</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+          <ion-label><b>Monto Asegurado</b></ion-label>
+          <ion-item *ngFor="let cliente of listaCliente" [routerLink]="['/cliente-edit', cliente.id]">
+            <ion-label>{{ cliente.monto | number:'1.0-0' }}</ion-label>
+          </ion-item>
+        </ion-col>  
+
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button [routerLink]="['/cliente-edit/new']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
